@@ -5,7 +5,7 @@
 
 `default_nettype none
 
-module tt_um_example (
+module tt_um_alu4bit (
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
     input  wire [7:0] uio_in,   // IOs: Input path
@@ -23,5 +23,13 @@ module tt_um_example (
 
   // List all unused inputs to prevent warnings
   wire _unused = &{ena, clk, rst_n, 1'b0};
-
+    reg[1:0] result;
+    if(rst_n)
+        result<=0;
+    else
+        case(op)
+            2'b00 result <= a+b
+            2'b01 result <= a-b
+            2'b10 result <= a*b
+            2'b11 result <= a/b
 endmodule
